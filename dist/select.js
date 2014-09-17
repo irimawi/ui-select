@@ -347,8 +347,13 @@
 
     ctrl.getPlaceholder = function(){
       //Refactor single?
-      if(ctrl.multiple && ctrl.selected.length) return;
-      return ctrl.placeholder;
+      if(typeof ctrl.multiple != "undefined") && (typeof ctrl.selected != "undefined"){
+        if(ctrl.multiple && ctrl.selected.length) return;
+        return ctrl.placeholder;
+      }
+      else {
+        return "";
+      }
     };
 
     ctrl.sizeSearchInput = function(){
@@ -558,6 +563,9 @@
         ngModel.$parsers.unshift(function (inputValue) {
           var locals = {},
               result;
+          if(typeof inputValue == "undefined"){
+            inputValue = "";
+          }
           if ($select.multiple){
             var resultMultiple = [];
             for (var j = inputValue.length - 1; j >= 0; j--) {
